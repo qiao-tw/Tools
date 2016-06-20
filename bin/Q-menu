@@ -1,0 +1,67 @@
+#!/bin/bash
+
+source /etc/bash_completion
+source /newhome/qian/.bashrc
+source /newhome/qian/.profile
+
+function Q-htags(){
+  htags -aFghInosxv --show-position --tabs 3
+}
+
+function Q-grep(){
+  echo "====== Q-grep ======"
+  echo "It will launch \"grep --color -rns --exclude-dir=\".svn\" <keyword> <folder>\""
+  local ans_kw;
+  read -e -p "Please enter <keyword>: " ans_kw;
+  local ans_fld;
+  read -e -p "Please enter <folder>: " ans_fld;
+
+  _expand
+
+  grep -rns --color --exclude-dir=".svn" $ans_kw $ans_fld
+}
+
+function Q-rsync(){
+	echo "====== Q-rsync ======"
+	echo "It will launch \"rsync -rRvul --no-implied-dirs --times <target-folder>
+	<dest-folder>\""
+	local ans_tf;
+	local ans_df;
+	read -e -p "Please enter <target-folder>: " ans_tf;
+	read -e -p "Please enter   <dest-folder>: " ans_df;
+
+	rsync -rRvul --no-implied-dirs --times $ans_tf $ans_df
+}
+
+function Q-menu(){
+  echo
+  echo "Please Enter Your Choice:"
+  echo "1. Q-htags"
+  echo "2. Q-grep"
+	echo "3. Q-rsync"
+  
+  local answer
+  read answer
+  case $answer in
+    "1")
+      Q-htags
+      ;;
+    "2")
+      Q-grep
+      ;;
+		"3")
+			Q-rsync
+			;;
+    "")
+      echo "Usage: $0 <number>"
+      Q-menu
+      ;;
+    *)
+      echo "Usage: $0 <number>"
+      Q-menu
+      ;;
+  esac
+}
+
+Q-menu
+
