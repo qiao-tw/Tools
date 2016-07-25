@@ -3,6 +3,7 @@ export PATH=${PATH}:${HOME}/Tools/qtcreator-3.6.0/bin
 export PATH=${PATH}:${HOME}/Android/Sdk/platform-tools
 export PATH=${PATH}:${HOME}/Tools/android-ndk-r10e
 export PATH=${PATH}:${HOME}/Tools/scripts
+export PATH=${PATH}:${HOME}/Tools/bin
 export PATH=${PATH}:/usr/share/tomcat7/bin
 export PATH=${PATH}:/usr/local/Cellar/tomcat/8.0.30/bin/catalina
 export PATH=${PATH}:${HOME}/Tools/p4v-2015.2.1315639/bin
