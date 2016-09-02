@@ -1,5 +1,5 @@
 export PATH=${PATH}:${HOME}/Tools/opengrok-0.12.1.5/bin
-export PATH=${PATH}:${HOME}/Tools/qtcreator-3.6.0/bin
+export PATH=${PATH}:${HOME}/Tools/qtcreator-4.1.0/bin
 export PATH=${PATH}:${HOME}/Android/Sdk/platform-tools
 export PATH=${PATH}:${HOME}/Tools/android-ndk-r10e
 export PATH=${PATH}:${HOME}/Tools/scripts
