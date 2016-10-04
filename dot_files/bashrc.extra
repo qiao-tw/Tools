@@ -13,6 +13,8 @@ export ANDROID_NDK=${HOME}/Tools/android-ndk-r10e
 export ANDROID_NDK_HOME=$ANDROID_NDK
 export NDK_ROOT=$ANDROID_NDK
 export RobotVisionApp=${HOME}/projects/robotvisionapp
+export CATALINA_HOME=/usr/share/tomcat7
+export CATALINA_BASE=/var/lib/tomcat7
 
 alias tree='tree --charset ASCII'
 alias htags='htags -aFghInosxv --show-position --tabs 4'
