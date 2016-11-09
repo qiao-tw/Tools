@@ -8,13 +8,13 @@ QIAO_BIN_DIR=${HOME}/Tools/bin
 cd ${ROBOTVISIONLIB_DIR}
 git stash clear
 git stash save
-git push bitbucket --all --force
+git push gitlab --all --force
 git stash pop
 
 cd ${ROBOTVISIONAPP_DIR}
 git stash clear
 git stash save
-git push bitbucket --all --force
+git push gitlab --all --force
 git stash pop
 
 cd ${QIAO_BIN_DIR}
