@@ -25,10 +25,6 @@ alias grep='grep --color --exclude-dir=".svn" --exclude-dir=".git"'
 source ${HOME}/Tools/dot_files/bash/themes/colors.theme.bash
 source ${HOME}/Tools/dot_files/bash/aliases/available/general.aliases.bash
 
-if [ -f /opt/ros/indigo/setup.bash ]; then
-    source /opt/ros/indigo/setup.bash
-fi
-
 # Add tab completion for many Bash commands
 if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
     source "$(brew --prefix)/share/bash-completion/bash_completion";
