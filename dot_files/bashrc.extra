@@ -13,7 +13,7 @@ export ANDROID_NDK=${HOME}/Tools/android-ndk-r10e
 export ANDROID_NDK_HOME=$ANDROID_NDK
 export NDK_ROOT=$ANDROID_NDK
 export ANDROID_NDK_ROOT=$ANDROID_NDK
-export RobotVisionApp=${HOME}/projects/robotvisionapp
+export RobotVisionApp=${HOME}/projects/robotvisionservice
 export CATALINA_HOME=/var/tomcat8
 export CATALINA_BASE=/var/tomcat8
 
