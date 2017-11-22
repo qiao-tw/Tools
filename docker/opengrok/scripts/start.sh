@@ -8,4 +8,7 @@ start_opengrok(){
     OpenGrok index /src
 }
 
-start_opengrok & catalina.sh run
+service tomcat8 start
+start_opengrok
+service tomcat8 restart
+tail -f /var/log/dmesg
