@@ -3,9 +3,9 @@ android-ndk-r14b/
 android-studio/
 opencv-3.1.0/
 opencv-3.1.0_shared/
-opengrok/
-opengrok-0.12.1.5/
+./opengrok
 qtcreator*
 GitEye/
 anaconda*
 tomcat*
+firefox*
