@@ -1,13 +1,12 @@
 #!/bin/bash
 
-PROJECT_DIR=${HOME}/projects
-ROBOTVISIONLIB_DIR=${PROJECT_DIR}/robotvisionlib
-ROBOTVISIONSRV_DIR=${PROJECT_DIR}/robotvisionservice
-ROBOTTRANSFORM_DIR=${PROJECT_DIR}/transformation
+PROJECT_DIR=${HOME}/Projects
+ROBOTVISIONLIB_DIR=${PROJECT_DIR}/RobotVisionLib
+ROBOTVISIONSRV_DIR=${PROJECT_DIR}/RobotvisionService
+ROBOTTRANSFORM_DIR=${PROJECT_DIR}/Transformation
 ROBOTVISIONOPS_DIR=${PROJECT_DIR}/cv_devops
-ROBOTFRAMEWORK_DIR=${PROJECT_DIR}/robotframework
-
-
+ROBOTFRAMEWORK_DIR=${PROJECT_DIR}/davinci_robot_framework
+ROBOTMOTIONSRV_DIR=${PROJECT_DIR}/davinci_robot_motionservice
 
 cd ${ROBOTVISIONLIB_DIR}
 git stash clear
@@ -57,4 +56,12 @@ git checkout master
 git rebase origin/master
 git checkout develop
 git rebase origin/develop
+git stash pop
+
+cd ${ROBOTVISIONOPS_DIR}
+git stash clear
+git stash save
+git fetch origin
+git checkout m-mr1-r2_cht_hr-dev
+git rebase origin/m-mr1-r2_cht_hr-dev
 git stash pop
