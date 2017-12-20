@@ -1,5 +1,28 @@
 #!/usr/bin/env bash
 
+case "$(uname -s)" in
+
+   Darwin)
+     echo 'Mac OS X'
+     export OPENGROK_TOMCAT_BASE=/usr/local/Cellar/tomcat/8.5.23/libexec
+     ;;
+
+   Linux)
+     echo 'Linux'
+     ;;
+
+   CYGWIN*|MINGW32*|MSYS*)
+     echo 'MS Windows'
+     ;;
+
+   # Add here more strings to compare
+   # See correspondence table at the bottom of this answer
+
+   *)
+     echo 'other OS' 
+     ;;
+esac
+
 export PATH=${PATH}:${HOME}/Tools/opengrok/bin
 export PATH=${PATH}:${HOME}/Tools/qtcreator/bin
 export PATH=${PATH}:${HOME}/Android/Sdk/platform-tools
