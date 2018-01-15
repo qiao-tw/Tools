@@ -9,6 +9,7 @@ case "$(uname -s)" in
 
    Linux)
      echo 'Linux'
+     export LANG=en_US.UTF-8  # required by ROS2
      ;;
 
    CYGWIN*|MINGW32*|MSYS*)
@@ -19,7 +20,7 @@ case "$(uname -s)" in
    # See correspondence table at the bottom of this answer
 
    *)
-     echo 'other OS' 
+     echo 'other OS'
      ;;
 esac
 
