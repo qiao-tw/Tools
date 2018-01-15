@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 PROJECT_DIR=${HOME}/Projects
 ROBOTVISIONLIB_DIR=${PROJECT_DIR}/RobotVisionLib
 ROBOTVISIONSRV_DIR=${PROJECT_DIR}/RobotvisionService
@@ -16,8 +18,6 @@ git checkout master
 git rebase origin/master
 git checkout develop
 git rebase origin/develop
-git checkout craving
-git rebase origin/craving
 git stash pop
 
 cd ${ROBOTVISIONSRV_DIR}
@@ -34,8 +34,8 @@ cd ${ROBOTFRAMEWORK_DIR}
 git stash clear
 git stash save
 git fetch origin
-git checkout master
-git rebase origin/master
+git checkout m-mr1-r2_cht_hr-r6
+git rebase origin/m-mr1-r2_cht_hr-r6
 git stash pop
 
 cd ${ROBOTTRANSFORM_DIR}
@@ -58,7 +58,7 @@ git checkout develop
 git rebase origin/develop
 git stash pop
 
-cd ${ROBOTVISIONOPS_DIR}
+cd ${ROBOTMOTIONSRV_DIR}
 git stash clear
 git stash save
 git fetch origin
