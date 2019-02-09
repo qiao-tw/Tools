@@ -4,7 +4,6 @@ case "$(uname -s)" in
 
    Darwin)
      echo 'Mac OS X'
-     export OPENGROK_TOMCAT_BASE=/usr/local/Cellar/tomcat/8.5.23/libexec
      ;;
 
    Linux)
@@ -24,16 +23,12 @@ case "$(uname -s)" in
      ;;
 esac
 
-export PATH=${PATH}:${HOME}/Tools/opengrok/bin
-export PATH=${PATH}:${HOME}/Tools/qtcreator/bin
-export PATH=${PATH}:${HOME}/Android/Sdk/platform-tools
-export PATH=${PATH}:${HOME}/Tools/android-ndk-r14e
 export PATH=${PATH}:${HOME}/Tools/scripts
 export PATH=${PATH}:${HOME}/Tools/bin
-export LIBGL_ALWAYS_SOFTWARE=1
+#export LIBGL_ALWAYS_SOFTWARE=1
 
 alias tree='tree --charset ASCII'
-alias htags='htags -aFghInosxv --show-position --tabs 4'
+#alias htags='htags -aFghInosxv --show-position --tabs 4'
 alias rsync='rsync -rRvul --no-implied-dirs --times'
 alias grep='grep --color --exclude-dir=".svn" --exclude-dir=".git"'
 
