@@ -1,4 +1,4 @@
-.DS_*
+**/.DS_*
 android*
 opencv*
 qtcreator*
@@ -6,3 +6,4 @@ GitEye*
 anaconda*
 tomcat*
 firefox*
+Qt*
