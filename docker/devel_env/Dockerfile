@@ -23,23 +23,51 @@ RUN apt-get update && \
       build-essential \
       bzip2 \
       cmake \
+      coreutils \
       curl \
       git \
       google-mock \
+      googletest \
       libboost-all-dev \
       libeigen3-dev \
       libgflags-dev \
       libgoogle-glog-dev \
+      libgtest-dev \
       libsuitesparse-dev \
       libtool \
       lsb-release \
       make \
+      minicom \
       ninja-build \
       pkg-config \
+      sudo \
+      vim \
       wget \
       zip \
       zlib1g-dev && \
     rm -rf /var/lib/apt/lists/*
+
+# Add custom user
+ARG USER
+ARG UID
+ARG GID
+RUN useradd -m $USER && \
+    echo "$USER:$USER" | chpasswd && \
+    usermod --shell /bin/bash $USER && \
+    usermod -aG sudo $USER && \
+    usermod -aG video $USER && \
+    usermod -aG dialout $USER && \
+    echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER && \
+    chmod 0440 /etc/sudoers.d/$USER && \
+    usermod  --uid $UID $USER && \
+    groupmod --gid $GID $USER
+
+# Install GTest/GMonk
+RUN cd /usr/src/googletest && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make install -j$(nproc --all)
 
 # Install Ceres (pulled from googlecartographer)
 ARG CERES_SOLVER_VERSION="1.13.0"
@@ -92,6 +120,19 @@ RUN apt-get update && \
       libcurl4-openssl-dev \
       liblua5.2-dev \
       python-sphinx && \
+    rm -rf /var/lib/apt/lists/*
+
+# Dependcies for ROS2
+RUN sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list' && \
+    apt-get update && \
+    apt-get install -y locales curl gnupg2 lsb-release && \
+    locale-gen en_US en_US.UTF-8 && \
+    update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 && \
+    export LANG=en_US.UTF-8 && \
+    curl http://repo.ros2.org/repos.key | sudo apt-key add - && \
+    export CHOOSE_ROS_DISTRO=crystal && \
+    apt-get update && \
+    apt-get install -y ros-$CHOOSE_ROS_DISTRO-desktop ros-$CHOOSE_ROS_DISTRO-ros1-bridge python3-argcomplete && \
     rm -rf /var/lib/apt/lists/*
 
 # For Android development
@@ -220,23 +261,6 @@ RUN cd /usr/src/gtest/ && \
     make && \
     make install
 
-# Add custom user
-ARG USER
-ARG UID
-ARG GID
-RUN apt-get update && \
-    apt-get install -y sudo && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd -m $USER && \
-    echo "$USER:$USER" | chpasswd && \
-    usermod --shell /bin/bash $USER && \
-    usermod -aG sudo $USER && \
-    usermod -aG video $USER && \
-    usermod -aG dialout $USER && \
-    echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER && \
-    chmod 0440 /etc/sudoers.d/$USER && \
-    usermod  --uid $UID $USER && \
-    groupmod --gid $GID $USER
 
 USER $USER
 
