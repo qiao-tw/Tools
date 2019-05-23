@@ -1,7 +1,9 @@
 #!/bin/sh
 
 set -o errexit
-set -o verbose
+# Uncomment to debug
+# set -o verbose
+
 # pulled from gpal/ros_devel/xauth.sh
 # Make sure processes in the container can connect to the x server
 # Necessary so gazebo can create a context for OpenGL rendering (even headless)
@@ -41,36 +43,39 @@ xhost +
 
 IMAGE_NAME=devel-env
 CONTAINER_NAME=devel-env
-DOCKER_RUN_PARAMETER_LIST="-it \
-  --user $(id -u) \
-  --name=$CONTAINER_NAME \
-  --tmpfs /tmp:exec \
-  -h docker \
-  -e DISPLAY=host.docker.internal:0 \
-  -e QT_X11_NO_MITSHM=1 \
-  -e XAUTHORITY=$XAUTH \
-  -e USER=$USER \
-  -v /dataset:/dataset \
-  -v /etc/localtime:/etc/localtime:ro \
-  -v /etc/group:/etc/group:ro \
-  -v /etc/passwd:/etc/passwd:ro \
-  -v /etc/shadow:/etc/shadow:ro \
-  -v /etc/sudoers.d:/etc/sudoers.d:ro \
-  -v /home/$USER:/home/$USER \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v $XAUTH:$XAUTH \
-  -v /run/udev:/run/udev:ro \
-  -v /dev:/dev \
-  --net=host \
-  --privileged \
-  -d \
-  ${IMAGE_NAME} \
-  /bin/bash"
-  #-e XAUTHORITY=$XAUTH \
-  #-v "$WORKSPACE_DIR":/home/gpal \
-
-echo $DOCKER_RUN_PARAMETER_LIST
-
-docker run $DOCKER_RUN_PARAMETER_LIST
-
-docker exec -it $CONTAINER_NAME /bin/bash
+if [ $(docker inspect -f '{{.State.Running}}' $CONTAINER_NAME) ]
+then
+  docker start $CONTAINER_NAME
+  docker attach $CONTAINER_NAME
+else
+  DOCKER_RUN_PARAMETER_LIST="-it \
+    --user $(id -u) \
+    --name=$CONTAINER_NAME \
+    --tmpfs /tmp:exec \
+    -h docker \
+    -e DISPLAY=host.docker.internal:0 \
+    -e QT_X11_NO_MITSHM=1 \
+    -e XAUTHORITY=$XAUTH \
+    -e USER=$USER \
+    -v /dataset:/dataset \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /etc/group:/etc/group:ro \
+    -v /etc/passwd:/etc/passwd:ro \
+    -v /etc/shadow:/etc/shadow:ro \
+    -v /etc/sudoers.d:/etc/sudoers.d:ro \
+    -v /home/$USER:/home/$USER \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $XAUTH:$XAUTH \
+    -v /run/udev:/run/udev:ro \
+    -v /dev:/dev \
+    --net=host \
+    --privileged \
+    -d \
+    ${IMAGE_NAME} \
+    /bin/bash"
+    #-e XAUTHORITY=$XAUTH \
+    #-v "$WORKSPACE_DIR":/home/gpal \
+  echo $DOCKER_RUN_PARAMETER_LIST
+  docker run $DOCKER_RUN_PARAMETER_LIST
+  docker exec -it $CONTAINER_NAME /bin/bash
+fi
