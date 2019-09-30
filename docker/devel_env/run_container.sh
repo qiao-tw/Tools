@@ -53,7 +53,7 @@ else
     --name=$CONTAINER_NAME \
     --tmpfs /tmp:exec \
     -h docker \
-    -e DISPLAY=host.docker.internal:0 \
+    -e DISPLAY \
     -e QT_X11_NO_MITSHM=1 \
     -e XAUTHORITY=$XAUTH \
     -e USER=$USER \
@@ -71,7 +71,7 @@ else
     -d \
     ${IMAGE_NAME} \
     /bin/bash"
-    #-e XAUTHORITY=$XAUTH \
+    #-e DISPLAY=host.docker.internal:0 \
     #-v "$WORKSPACE_DIR":/home/gpal \
     #-v /etc/localtime:/etc/localtime:ro \
     #-v /run/udev:/run/udev:ro \
