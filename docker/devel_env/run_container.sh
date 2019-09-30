@@ -2,7 +2,7 @@
 
 set -o errexit
 # Uncomment to debug
-# set -o verbose
+set -o verbose
 
 # pulled from gpal/ros_devel/xauth.sh
 # Make sure processes in the container can connect to the x server
@@ -58,15 +58,13 @@ else
     -e XAUTHORITY=$XAUTH \
     -e USER=$USER \
     -v /dataset:/dataset \
-    -v /etc/localtime:/etc/localtime:ro \
     -v /etc/group:/etc/group:ro \
     -v /etc/passwd:/etc/passwd:ro \
     -v /etc/shadow:/etc/shadow:ro \
-    -v /etc/sudoers.d:/etc/sudoers.d:ro \
-    -v /home/$USER:/home/$USER \
+    -v /private/etc/sudoers.d:/etc/sudoers.d:ro \
+    -v $HOME:/home/$USER \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $XAUTH:$XAUTH \
-    -v /run/udev:/run/udev:ro \
     -v /dev:/dev \
     --net=host \
     --privileged \
@@ -75,6 +73,8 @@ else
     /bin/bash"
     #-e XAUTHORITY=$XAUTH \
     #-v "$WORKSPACE_DIR":/home/gpal \
+    #-v /etc/localtime:/etc/localtime:ro \
+    #-v /run/udev:/run/udev:ro \
   echo $DOCKER_RUN_PARAMETER_LIST
   docker run $DOCKER_RUN_PARAMETER_LIST
   docker exec -it $CONTAINER_NAME /bin/bash

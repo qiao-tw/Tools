@@ -51,6 +51,7 @@ RUN apt-get update && \
 ARG USER
 ARG UID
 ARG GID
+ARG OS_TYPE
 RUN useradd -m $USER && \
     echo "$USER:$USER" | chpasswd && \
     usermod --shell /bin/bash $USER && \
@@ -60,7 +61,7 @@ RUN useradd -m $USER && \
     echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER && \
     chmod 0440 /etc/sudoers.d/$USER && \
     usermod  --uid $UID $USER && \
-    groupmod --gid $GID $USER
+    bash -c 'if [ "${OS_TYPE}" == "Linux" ]; then groupmod --gid $GID $USER; fi'
 
 # Install GTest/GMonk
 RUN cd /usr/src/googletest && \

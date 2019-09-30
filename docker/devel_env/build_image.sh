@@ -17,9 +17,10 @@ set -o verbose
 #     git clone https://github.com/google/protobuf.git
 # fi
 
-docker build                \
-  -t devel-env              \
-  --build-arg USER=$USER    \
-  --build-arg UID=$(id -u)  \
-  --build-arg GID=$(id -g)  \
+docker build                          \
+  -t devel-env                        \
+  --build-arg USER=$USER              \
+  --build-arg UID=$(id -u)            \
+  --build-arg GID=$(id -g)            \
+  --build-arg OS_TYPE=$(shell uname)  \
   .
